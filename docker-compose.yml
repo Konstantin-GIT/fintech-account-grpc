@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5003"
+      - "6566:6566"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - PORT=5003
+    volumes:
+      - .:/app
+    networks:
+      - backend
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: fintech-account-db
+      POSTGRES_USER: SU
+      POSTGRES_PASSWORD: PWD
+    ports:
+      - "5433:5432"
+    networks:
+      - backend
+networks:
+  backend:
